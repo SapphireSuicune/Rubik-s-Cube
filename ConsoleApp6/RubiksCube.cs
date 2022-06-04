@@ -8,13 +8,13 @@ namespace RubiksSolver
 {
     public class RubiksCube
     {
-        public Color[] FaceWhite { get; set; } // Default is White      In the front.
-        public Color[] FaceYellow { get; set; } // Default is Yellow     In the back.
-        public Color[] FaceRed { get; set; } // Default is Red        On the top.
-        public Color[] FaceOrange { get; set; } // Default is Orange     On the bottom.
-        public Color[] FaceBlue { get; set; } // Default is Blue       On the left.
-        public Color[] FaceGreen { get; set; } // Default is Green      On the right.
-        
+        public Color[] FaceWhite { get; set; } // Center is White      In the front.
+        public Color[] FaceYellow { get; set; } // Center is Yellow     In the back.
+        public Color[] FaceRed { get; set; } // Center is Red        On the top.
+        public Color[] FaceOrange { get; set; } // Center is Orange     On the bottom.
+        public Color[] FaceBlue { get; set; } // Center is Blue       On the left.
+        public Color[] FaceGreen { get; set; } // Center is Green      On the right.
+
         public RubiksCube(Color[] f1, Color[] f2, Color[] f3, Color[] f4, Color[] f5, Color[] f6)
         {
             FaceWhite = f1;
@@ -27,12 +27,24 @@ namespace RubiksSolver
 
         public static RubiksCube Solved()
         {
-            Color[] whiteFace = {Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White};
+            Color[] whiteFace = { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
             Color[] yellowFace = { Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow, Color.Yellow };
             Color[] redFace = { Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red, Color.Red };
             Color[] orangeFace = { Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange, Color.Orange };
             Color[] blueFace = { Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue };
             Color[] greenFace = { Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green, Color.Green };
+
+            return new RubiksCube(whiteFace, yellowFace, redFace, orangeFace, blueFace, greenFace);
+        }
+
+        public static RubiksCube Checkerboard()
+        {
+            Color[] whiteFace = { Color.White, Color.Yellow, Color.White, Color.Yellow, Color.White, Color.Yellow, Color.White, Color.Yellow, Color.White };
+            Color[] yellowFace = { Color.Yellow, Color.White, Color.Yellow, Color.White, Color.Yellow, Color.White, Color.Yellow, Color.White, Color.Yellow };
+            Color[] redFace = { Color.Red, Color.Orange, Color.Red, Color.Orange, Color.Red, Color.Orange, Color.Red, Color.Orange, Color.Red };
+            Color[] orangeFace = { Color.Orange, Color.Red, Color.Orange, Color.Red, Color.Orange, Color.Red, Color.Orange, Color.Red, Color.Orange };
+            Color[] blueFace = { Color.Blue, Color.Green, Color.Blue, Color.Green, Color.Blue, Color.Green, Color.Blue, Color.Green, Color.Blue };
+            Color[] greenFace = { Color.Green, Color.Blue, Color.Green, Color.Blue, Color.Green, Color.Blue, Color.Green, Color.Blue, Color.Green };
 
             return new RubiksCube(whiteFace, yellowFace, redFace, orangeFace, blueFace, greenFace);
         }
@@ -50,8 +62,6 @@ namespace RubiksSolver
             FaceWhite[1] = green_c[1];
             FaceWhite[2] = green_c[2];
 
-            Console.WriteLine(white_c[0]);
-
             FaceGreen[0] = yellow_c[0];
             FaceGreen[1] = yellow_c[1];
             FaceGreen[2] = yellow_c[2];
@@ -61,7 +71,6 @@ namespace RubiksSolver
             FaceYellow[2] = blue_c[2];
 
             FaceBlue[0] = white_c[0];
-            Console.WriteLine(FaceBlue[0]);
             FaceBlue[1] = white_c[1];
             FaceBlue[2] = white_c[2];
 
@@ -390,6 +399,113 @@ namespace RubiksSolver
             S();
             S();
             S();
+        }
+
+        public void MoveToState(RubiksCube result)
+        {
+            // do the magic stuff to get a cube to go to a certain permutation
+        }
+
+        public void Solve()
+        {
+            MoveToState(Solved());
+        }
+
+        public string[] ScrambleMoves = { "R", "R2", "R'", "U", "U2", "U'", "F", "F2", "F'", "L", "L2", "L'", "D", "D2", "D'", "B", "B2", "B'" };
+
+        public void Scramble()
+        {
+            Random rand = new();
+            int len = rand.Next(8, 20);
+            string[] moves = new string[len];
+            for(int i = 0; i < len; i++)
+            {
+                moves[i] = ((char)(i + 33)).ToString();
+            }
+            for(int i = 0; i < len; i++)
+            {
+                string move;
+
+                try
+                {
+                    do
+                    {
+                        move = ScrambleMoves[rand.Next(ScrambleMoves.Length)];
+                        moves[i] = move;
+                    }
+                    while (moves[i][0] == moves[i - 1][0]);
+                }
+                
+                catch
+                {
+                    move = ScrambleMoves[rand.Next(ScrambleMoves.Length)];
+                }
+
+                moves[i] = move;
+            }
+
+            foreach(string move in moves)
+            {
+                switch (move)
+                {
+                    case "R":
+                        R();
+                        break;
+                    case "R2":
+                        R2();
+                        break;
+                    case "R'":
+                        R_Prime();
+                        break;
+                    case "U":
+                        U();
+                        break;
+                    case "U2":
+                        U2();
+                        break;
+                    case "U'":
+                        U_Prime();
+                        break;
+                    case "F":
+                        F();
+                        break;
+                    case "F2":
+                        F2();
+                        break;
+                    case "F'":
+                        F_Prime();
+                        break;
+                    case "L":
+                        L();
+                        break;
+                    case "L2":
+                        L2();
+                        break;
+                    case "L'":
+                        L_Prime();
+                        break;
+                    case "D":
+                        D();
+                        break;
+                    case "D2":
+                        D2();
+                        break;
+                    case "D'":
+                        D_Prime();
+                        break;
+                    case "B":
+                        B();
+                        break;
+                    case "B2":
+                        B2();
+                        break;
+                    case "B'":
+                        B_Prime();
+                        break;
+                }
+            }
+
+            Console.WriteLine(string.Join(" ", moves));
         }
     }
 }

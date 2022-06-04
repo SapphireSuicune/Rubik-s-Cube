@@ -2,9 +2,11 @@
 
 RubiksCube cube = RubiksCube.Solved();
 
-cube.M2();
+/*cube.M2();
 cube.E2();
-cube.S2();
+cube.S2();*/
+
+cube.Scramble();
 
 Console.WriteLine($"{cube.FaceWhite[0]} {cube.FaceWhite[1]} {cube.FaceWhite[2]}");
 Console.WriteLine($"{cube.FaceWhite[3]} {cube.FaceWhite[4]} {cube.FaceWhite[5]}");
