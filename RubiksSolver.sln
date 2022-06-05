@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubiksSolver", "ConsoleApp6\RubiksSolver.csproj", "{B054B997-69CD-4514-AD20-CA1F59EFFD32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubiksSolver", "RubiksSolver\RubiksSolver.csproj", "{B054B997-69CD-4514-AD20-CA1F59EFFD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
