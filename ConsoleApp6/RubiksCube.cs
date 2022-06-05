@@ -78,7 +78,7 @@ namespace RubiksSolver
             FaceRed[1] = red_c[3];
             FaceRed[2] = red_c[0];
             FaceRed[3] = red_c[7];
-            FaceRed[4] = red_c[4]; // yeah i know it's redudant
+            FaceRed[4] = red_c[4]; // yeah i know it's redundant
             FaceRed[5] = red_c[1];
             FaceRed[6] = red_c[8];
             FaceRed[7] = red_c[5];
@@ -401,9 +401,17 @@ namespace RubiksSolver
             S();
         }
 
-        public void MoveToState(RubiksCube result)
+        public void MoveToState(RubiksCube expectedResult)
         {
-            // do the magic stuff to get a cube to go to a certain permutation
+            if (this.FaceWhite[4] != Color.White || this.FaceYellow[4] != Color.Yellow || this.FaceRed[4] != Color.Red || this.FaceOrange[4] != Color.Orange || this.FaceBlue[4] != Color.Blue || this.FaceGreen[4] != Color.Green)
+            {
+                throw new InvalidCubeException("Input cube's centers are duplicated or do not match.");
+            }
+
+            if (expectedResult.FaceWhite[4] != Color.White || expectedResult.FaceYellow[4] != Color.Yellow || expectedResult.FaceRed[4] != Color.Red || expectedResult.FaceOrange[4] != Color.Orange || expectedResult.FaceBlue[4] != Color.Blue || expectedResult.FaceGreen[4] != Color.Green)
+            {
+                throw new InvalidCubeException("Result's centers are duplicated or do not match.");
+            }
         }
 
         public void Solve()

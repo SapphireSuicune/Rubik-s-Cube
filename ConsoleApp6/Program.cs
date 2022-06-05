@@ -2,9 +2,14 @@
 
 RubiksCube cube = RubiksCube.Solved();
 
+RubiksCube whatWeWant = RubiksCube.Solved();
+whatWeWant.FaceWhite[4] = Color.Red;
+
 /*cube.M2();
 cube.E2();
 cube.S2();*/
+
+whatWeWant.Solve();
 
 cube.Scramble();
 
